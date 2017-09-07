@@ -14,16 +14,18 @@
 //Auto frame adjust
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 //Escape key closes window
-void processInput(GLFWwindow* window);
+void processInput(GLFWwindow* window);	
+
+const unsigned int SCR_WIDTH = 800;	
+const unsigned int SCR_HEIGHT = 600;
 
 //Vertex shader source code
-const char *vertexShaderSource =
-	"#version 330 core\n"
-	"layout(location = 0) in vec3 aPos;\n"
+const char *vertexShaderSource = "#version 330 core\n"
+	"layout (location = 0) in vec3 aPos;\n"
 	"void main()\n"
 	"{\n"
-	"gl_position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-	"}\n";
+	"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+	"}\0";
 //Fragment shader source code
 const char *fragmentShaderSource =
 	"#version 330 core\n"
@@ -40,7 +42,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//GLFW window creation
-	GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Practice", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL Practice", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW Window" << std::endl;
@@ -60,7 +62,7 @@ int main()
 		return -1;
 	}
 	//Build and compile the vertex shader program
-	unsigned int vertexShader;
+	int vertexShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
@@ -75,10 +77,26 @@ int main()
 	}
 
 	//Build and compile the fragment shader program
-	unsigned int fragmentShader;
+	int fragmentShader;
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
+
+	//Link Shaders
+	int shaderProgram;
+	shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	glLinkProgram(shaderProgram);
+	///Checks for successful link
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	if (!success)
+	{
+		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+	}
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 
 
 	//Triangle
@@ -88,11 +106,23 @@ int main()
 		0.0f,0.5f,0.0f,
 	};
 	//Buffers
-	unsigned int VBO;
+	//0, copy verticies array in a buffer for OpenGLto use
+	unsigned int VBO,VAO;
+	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	//Bind VAO object first then set vertex buffers, the nconfigure vertex attributes
+	glBindVertexArray(VAO);
+
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	
+	//Set vertex attriute pointers	 
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	//Drawing the object
+	glUseProgram(shaderProgram);
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 	//Renderloop (keeps the window on the screen until an action)
 	while (!glfwWindowShouldClose(window))
 	{

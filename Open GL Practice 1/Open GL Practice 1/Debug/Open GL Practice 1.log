@@ -1,15 +1,3 @@
-﻿  vertexShaderSource.glsl
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(1): error C2065: 'location': undeclared identifier
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(1): error C2146: syntax error: missing ';' before identifier 'in'
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): error C2065: 'gl_position': undeclared identifier
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): error C2065: 'aPos': undeclared identifier
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): error C2228: left of '.x' must have class/struct/union
-  c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): note: type is 'unknown-type'
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): error C2228: left of '.y' must have class/struct/union
-  c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): note: type is 'unknown-type'
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): error C2228: left of '.z' must have class/struct/union
-  c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): note: type is 'unknown-type'
-c:\users\sevans\documents\visual studio 2017\projects\open gl practice 1\open gl practice 1\vertexshadersource.glsl(5): error C3861: 'vec4': identifier not found
-  Source.cpp
-  Generating Code...
+﻿  Source.cpp
+  Open GL Practice 1.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\Open GL Practice 1\Debug\Open GL Practice 1.exe
+  Open GL Practice 1.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\Open GL Practice 1\Debug\Open GL Practice 1.pdb (Partial PDB)
