@@ -1,5 +1,4 @@
-﻿  glad.c
-render.obj : error LNK2019: unresolved external symbol _glfwInit referenced in function _main
+﻿render.obj : error LNK2019: unresolved external symbol _glfwInit referenced in function _main
 render.obj : error LNK2019: unresolved external symbol _glfwTerminate referenced in function _main
 render.obj : error LNK2019: unresolved external symbol _glfwWindowHint referenced in function _main
 render.obj : error LNK2019: unresolved external symbol _glfwCreateWindow referenced in function _main

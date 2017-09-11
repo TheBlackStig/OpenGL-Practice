@@ -15,7 +15,7 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 //Escape key closes window
 void processInput(GLFWwindow* window);	
-
+//Screen settings
 const unsigned int SCR_WIDTH = 800;	
 const unsigned int SCR_HEIGHT = 600;
 
@@ -36,6 +36,7 @@ const char *fragmentShaderSource =
 	"}\n"; 
 int main()
 {
+	//GLFW initialise and configure
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -81,6 +82,13 @@ int main()
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
+	///Chefckc for erros when compiling
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::VERTEX::COMPLIATION_FAILED\n" << infoLog << std::endl;
+	}
 
 	//Link Shaders
 	int shaderProgram;
@@ -101,11 +109,16 @@ int main()
 
 	//Triangle
 	float vertices[] = {
-		-0.5f,-0.5f,0.0f,
-		0.5f,-0.5f,0.0f,
-		0.0f,0.5f,0.0f,
+		0.5f,  0.5f, 0.0f,  // top right
+		0.5f, -0.5f, 0.0f,  // bottom right
+		-0.5f, -0.5f, 0.0f,  // bottom left
+		-0.5f,  0.5f, 0.0f   // top left 
 	};
-	//Buffers
+	//Takes 4 coords from verticites and specifies which coords should be rendered and in which order
+	unsigned int indices[] = {
+		0,1,3,		//First triangle
+		1,2,3
+	}
 	//0, copy verticies array in a buffer for OpenGLto use
 	unsigned int VBO,VAO;
 	glGenVertexArrays(1, &VAO);
@@ -133,10 +146,18 @@ int main()
 		glClearColor(0.2f, 0.25f, 0.3f, 0.3f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		//Draw Triangle
+		glUseProgram(shaderProgram);
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0,3);
+
 		//check and call events and swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 
 	//Clears all allocated resources
 	glfwTerminate();
