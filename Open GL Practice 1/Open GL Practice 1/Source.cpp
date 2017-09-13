@@ -30,9 +30,10 @@ const char *vertexShaderSource = "#version 330 core\n"
 const char *fragmentShaderSource =
 	"#version 330 core\n"
 	"out vec4 FragColor;\n"
+	"uniform vec4 ourColor\n"
 	"void main()\n"
 	"{\n"
-	"FragColor = vec4(1.0f,0.5f,0.2f,1.0f);\n"
+	"FragColor = ourColor;\n"
 	"}\n"; 
 int main()
 {
@@ -118,13 +119,17 @@ int main()
 	unsigned int indices[] = {
 		0,1,3,		//First triangle
 		1,2,3
-	}
+	};
 	//0, copy verticies array in a buffer for OpenGLto use
-	unsigned int VBO,VAO;
+	unsigned int VBO,VAO,EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
 	//Bind VAO object first then set vertex buffers, the nconfigure vertex attributes
 	glBindVertexArray(VAO);
+	//Bind Element array buffers
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -132,10 +137,6 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	//Drawing the object
-	glUseProgram(shaderProgram);
-	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
 	//Renderloop (keeps the window on the screen until an action)
 	while (!glfwWindowShouldClose(window))
 	{
@@ -146,10 +147,12 @@ int main()
 		glClearColor(0.2f, 0.25f, 0.3f, 0.3f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		//Draw in wireframe mode
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		//Draw Triangle
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0,3);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		//check and call events and swap buffers
 		glfwSwapBuffers(window);
@@ -158,6 +161,7 @@ int main()
 
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 
 	//Clears all allocated resources
 	glfwTerminate();
