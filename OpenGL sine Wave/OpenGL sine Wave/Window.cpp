@@ -24,9 +24,10 @@ int main()
 	}
 
 	//Initilisation of GLAD
-	if (!gladLoadGLLoader((GLADloadProc)glfwGetProcAddress));
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-
+		std::cout << " FAILED TO INITIALISE GLAD." << std::endl;
+		return -1;
 	}
 	return 0;
 }
