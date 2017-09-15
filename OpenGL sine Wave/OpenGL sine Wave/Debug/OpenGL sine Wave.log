@@ -1,2 +1,6 @@
-﻿  OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.exe
+﻿  Window.cpp
+  LineRender.cpp
+  Generating Code...
+  LINK : C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.exe not found or not built by the last incremental link; performing full link
+  OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.exe
   OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.pdb (Partial PDB)
