@@ -23,11 +23,32 @@ int main()
 		return -1;
 	}
 
+	//Call viewport resize check
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
 	//Initilisation of GLAD
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << " FAILED TO INITIALISE GLAD." << std::endl;
-		return -1;
+		return -2;
 	}
+
+
+	//The render loop
+	while (!glfwWindowShouldClose(window))
+	{
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+
+	//Terminates the window
+	glfwTerminate();
 	return 0;
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	/*Set viewport size to screen width-100 and screen height-100 so that options
+	can be displayed around the edge of the rendering window*/
+	glViewport(0, 0, width - 100, height - 100);
 }
