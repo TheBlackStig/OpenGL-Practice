@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "LineRender.h"
 
 int main()
 {
@@ -34,10 +35,16 @@ int main()
 		return -2;
 	}
 
+	
+
+
 
 	//The render loop
 	while (!glfwWindowShouldClose(window))
 	{
+		//Sets color of window
+		glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+		glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
