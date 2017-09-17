@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "LineRender.h"
+#include "SineWaveVertexGen.h"
 
 int main()
 {
@@ -35,8 +36,10 @@ int main()
 		return -2;
 	}
 
-	
-
+	//Creates a sineline object and adds the vertex corods
+	sineLine sine_wave_one;
+	sine_wave_one.addVertices(sineCurveGeneration());
+	sine_wave_one.returnVertices();
 
 
 	//The render loop

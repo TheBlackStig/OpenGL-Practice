@@ -1,5 +1,7 @@
 #pragma once
 
+//Custom includes
+#include "SineWaveVertexGen.h"
 
 //Standard includes
 #include <iostream>
@@ -14,9 +16,9 @@
 class sineLine 
 {
 private:
-	std::vector<float> vertices;
+	std::vector<float> vertices_vector;
 public:
 	void addVertices(std::vector<float> vertex_coords);
-	void returnVertices(std::vector<float> vertices);
-
+	void returnVertices();
+	void VBOBufferCreation();
 };
