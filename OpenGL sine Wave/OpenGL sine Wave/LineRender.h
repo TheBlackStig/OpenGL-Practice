@@ -16,7 +16,7 @@ class sineLine
 private:
 	std::vector<float> vertices;
 public:
-	void addVertices(std::vector<float> vertices);
+	void addVertices(std::vector<float> vertex_coords);
 	void returnVertices(std::vector<float> vertices);
 
 };
