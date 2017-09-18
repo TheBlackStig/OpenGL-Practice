@@ -36,11 +36,13 @@ int main()
 		return -2;
 	}
 
-	//Creates a sineline object and adds the vertex corods
+	//Creates a sineline object and adds the vertex coords
 	sineLine sine_wave_one;
 	sine_wave_one.addVertices(sineCurveGeneration());
 	sine_wave_one.returnVertices();
 	sine_wave_one.VBOBufferCreation();
+	sine_wave_one.vertexShaderCompiler();
+	sine_wave_one.fragmentShaderCompiler();
 
 
 	//The render loop
