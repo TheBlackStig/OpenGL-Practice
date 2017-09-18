@@ -40,6 +40,7 @@ int main()
 	sineLine sine_wave_one;
 	sine_wave_one.addVertices(sineCurveGeneration());
 	sine_wave_one.returnVertices();
+	sine_wave_one.VBOBufferCreation();
 
 
 	//The render loop

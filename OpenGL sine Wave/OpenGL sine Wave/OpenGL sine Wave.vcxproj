@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>G:\Github\OpenGL-Practice\OpenGL sine Wave\Libs &amp; Includes\include;$(IncludePath)</IncludePath>
-    <LibraryPath>G:\Github\OpenGL-Practice\OpenGL sine Wave\Libs &amp; Includes\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\SEvans\Documents\glfw libs &amp; includes\include;G:\Github\OpenGL-Practice\OpenGL sine Wave\Libs &amp; Includes\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\SEvans\Documents\glfw libs &amp; includes\lib-vc2015;G:\Github\OpenGL-Practice\OpenGL sine Wave\Libs &amp; Includes\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -117,7 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Programming\GLAD\src\glad.c" />
+    <ClCompile Include="..\..\..\..\GLAD\glad\src\glad.c" />
     <ClCompile Include="LineRender.cpp" />
     <ClCompile Include="SineWaveVertexGen.cpp" />
     <ClCompile Include="Window.cpp" />

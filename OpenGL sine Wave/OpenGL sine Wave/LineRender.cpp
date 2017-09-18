@@ -24,10 +24,20 @@ void sineLine::returnVertices()
 }
 
 //Creates a vertex buffer object and binds it to the appropriate buffers
-void VBOBufferCreation()
+
+void sineLine::VBOBufferCreation()
 {
+	//Not sure why but it doesnt like the pointer to the class data member 
+	//Going to cheat and make a new variable and point to that for now
+	std::vector<float> temp_vector = sineLine::vertices_vector;
 	unsigned int VBO;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(sineLine::vertices_vector), sineLine::&vertices_vector, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(sineLine::vertices_vector), &temp_vector, GL_STATIC_DRAW);
 }
+
+void sineLine::vertexShaderCompiler()
+{
+	unsigned int vertex_shader;
+	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertex_shader, 1, sineLine::&vertex_shader_source, NULL);
