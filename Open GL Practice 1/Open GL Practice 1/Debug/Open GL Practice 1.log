@@ -1,3 +1,4 @@
-﻿  Source.cpp
+﻿  glad.c
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Open GL Practice 1.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\Open GL Practice 1\Debug\Open GL Practice 1.exe
   Open GL Practice 1.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\Open GL Practice 1\Debug\Open GL Practice 1.pdb (Partial PDB)

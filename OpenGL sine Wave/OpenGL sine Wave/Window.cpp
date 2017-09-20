@@ -41,8 +41,9 @@ int main()
 	sine_wave_one.addVertices(sineCurveGeneration());
 	sine_wave_one.returnVertices();
 	sine_wave_one.VBOBufferCreation();
-	sine_wave_one.vertexShaderCompiler();
-	sine_wave_one.fragmentShaderCompiler();
+	/*Compiels the vertex shader, fragment shader and then links the two
+	in a shader program and then calls the shader program to be used.*/
+	glUseProgram(sine_wave_one.shaderProgramLinker(sine_wave_one.vertexShaderCompiler, sine_wave_one.vertexShaderCompiler));
 
 
 	//The render loop
