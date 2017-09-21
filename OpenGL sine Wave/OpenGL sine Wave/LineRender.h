@@ -32,8 +32,8 @@ private:
 		"}\0";
 public:
 	void addVertices(std::vector<float> vertex_coords);
-	void returnVertices();
-	void VBOBufferCreation();
+	std::vector<float> returnVertices();
+	unsigned int VBOBufferCreation();
 	unsigned int vertexShaderCompiler();
 	unsigned int fragmentShaderCompiler();
 	unsigned int shaderProgramLinker(unsigned int vertex_shader,unsigned int frag_shader);

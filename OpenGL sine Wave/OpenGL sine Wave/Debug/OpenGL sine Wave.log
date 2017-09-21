@@ -1,6 +1,3 @@
-﻿  LineRender.cpp
-c:\users\sevans\documents\github\opengl-practice\opengl sine wave\opengl sine wave\linerender.cpp(63): error C2143: syntax error: missing ';' before '}'
-  Generating Code...
-  Compiling...
-  Window.cpp
-  Generating Code...
+﻿  Window.cpp
+  OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.exe
+  OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.pdb (Partial PDB)
