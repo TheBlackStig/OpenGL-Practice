@@ -35,13 +35,13 @@ int main()
 		std::cout << " FAILED TO INITIALISE GLAD." << std::endl;
 		return -2;
 	}
-
+	
 	//Creates a sineline object and adds the vertex coords
 	sineLine sine_wave_one;
 	sine_wave_one.addVertices(sineCurveGeneration());
 	std::vector<float> vertices = sine_wave_one.returnVertices();
 	sine_wave_one.VBOBufferCreation();
-	/*Compiels the vertex shader, fragment shader and then links the two
+	/*Compiles the vertex shader, fragment shader and then links the two
 	in a shader program and then calls the shader program to be used.*/
 	unsigned int shader_program = sine_wave_one.shaderProgramLinker(sine_wave_one.vertexShaderCompiler(), sine_wave_one.vertexShaderCompiler());
 	//Set vertex attribute pointers
