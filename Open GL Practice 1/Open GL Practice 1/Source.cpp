@@ -148,7 +148,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//Draw in wireframe mode
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		//Draw Triangle
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
