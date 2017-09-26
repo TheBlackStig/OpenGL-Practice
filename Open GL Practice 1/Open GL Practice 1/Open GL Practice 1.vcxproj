@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\SEvans\Documents\glfw libs and includes\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\SEvans\Documents\glfw libs and includes\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\SEvans\Documents\glfw libs &amp; includes\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\SEvans\Documents\glfw libs &amp; includes\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
