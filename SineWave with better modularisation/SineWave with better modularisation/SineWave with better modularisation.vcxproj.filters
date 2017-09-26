@@ -21,9 +21,15 @@
     <ClCompile Include="mainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sineWaveVertexGen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sineWaveVertexGen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
