@@ -1,4 +1,6 @@
 #include "Window.h"
+#include "LineRender.h"
+#include "SineWaveVertexGen.h"
 
 int main()
 {
@@ -22,6 +24,7 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
+	glfwMakeContextCurrent(window);
 
 	//Call viewport resize check
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -32,11 +35,39 @@ int main()
 		std::cout << " FAILED TO INITIALISE GLAD." << std::endl;
 		return -2;
 	}
+	
+	//Creates a sineline object and adds the vertex coords
+	sineLine sine_wave_one;
+	sine_wave_one.addVertices(sineCurveGeneration());
+	std::vector<float> vertices = sine_wave_one.returnVertices();
+	sine_wave_one.VBOBufferCreation();
+	/*Compiles the vertex shader, fragment shader and then links the two
+	in a shader program and then calls the shader program to be used.*/
+	unsigned int shader_program = sine_wave_one.shaderProgramLinker(sine_wave_one.vertexShaderCompiler(), sine_wave_one.vertexShaderCompiler());
+	//Set vertex attribute pointers
+	//Generate a Vertex Array Object
+	unsigned int VAO;
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(0);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
 
 	//The render loop
 	while (!glfwWindowShouldClose(window))
 	{
+		//Sets color of window
+		glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glUseProgram(shader_program);
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_LINES,0,sizeof(vertices)-1);
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
