@@ -1,3 +1,9 @@
-﻿  mainWindow.cpp
+﻿  sineWaveVertexGen.cpp
+c:\users\sevans\documents\github\opengl-practice\sinewave with better modularisation\sinewave with better modularisation\sinewavevertexgen.cpp(10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\sevans\documents\github\opengl-practice\sinewave with better modularisation\sinewave with better modularisation\sinewavevertexgen.cpp(15): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  mainWindow.cpp
+  Generating Code...
+  LINK : C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\SineWave with better modularisation\Debug\SineWave with better modularisation.exe not found or not built by the last incremental link; performing full link
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   SineWave with better modularisation.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\SineWave with better modularisation\Debug\SineWave with better modularisation.exe
   SineWave with better modularisation.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\SineWave with better modularisation\Debug\SineWave with better modularisation.pdb (Partial PDB)

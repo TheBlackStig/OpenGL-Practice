@@ -118,12 +118,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\GLAD\glad\src\glad.c" />
-    <ClCompile Include="LineRender.cpp" />
     <ClCompile Include="SineWaveVertexGen.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LineRender.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SineWaveVertexGen.h" />
     <ClInclude Include="Window.h" />
