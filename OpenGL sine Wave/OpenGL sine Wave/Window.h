@@ -12,3 +12,4 @@ int main();
 can be displayed around the edge of the rendering window*/
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
+unsigned int vertexShaderCompiler(const char* shader_source);

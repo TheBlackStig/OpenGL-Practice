@@ -60,19 +60,6 @@ int main()
 
 	// build and compile our shader program
 	// ------------------------------------
-	// vertex shader
-	int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-	// check for shader compile errors
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
 	// fragment shader
 	int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
@@ -102,11 +89,29 @@ int main()
 	// ------------------------------------------------------------------
 	//Sinewave
 	std::vector<float> vertices = sineCurveGeneration();
-	//Random
-	/*float vertices[] = {-1.0f,0.0f,0.0f
-		-0.5f,-0.5f,0.0f,
-		0.0f,0.0f,0.0f,
-		0.5f,0.5f,0.0f,
+	//Penguin attempt
+	/*float vertices[] = {-0.04f,0.8f,
+		0.04f,0.8f,
+		0.08f,0.75f,	//Right side of face
+		0.09f,0.7f,
+		0.085f,0.65f,
+		0.2f,0.5f,
+		0.25f,0.45f,
+		0.2f,0.4f,
+		0.15f,0.4f,
+		0.2f,0.3f,
+		0.08f,0.1f,// Now acrros to right
+		-0.08f,0.1f,
+		-0.2f,0.3f,
+		-0.15f,0.4f,
+		-0.2f,0.4f,
+		-0.25f,0.45f,
+		-0.2f,0.5f,
+		-0.085f,0.65f,
+		-0.09f,0.7f,
+		-0.08f,0.75f,
+		-0.04f,0.8f
+
 
 	};*/
 	/*
@@ -169,7 +174,10 @@ int main()
 		// draw our first triangle
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-		glDrawArrays(GL_LINE_STRIP, 0, vertices.size());
+		//For Arrays
+		//glDrawArrays(GL_LINE_STRIP, 0, sizeof(vertices));
+		//For Vectors
+		glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
 		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		// glBindVertexArray(0); // no need to unbind it every time 
 
@@ -209,92 +217,23 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	// height will be significantly larger than specified on retina displays.
 	glViewport(0, 0, width, height);
 }
-/*int main()
+
+unsigned int vertexShaderCompiler(const char* shader_source)
 {
-	//Screen width and height 
-	const unsigned int SCR_WIDTH = 800;
-	const unsigned int SCR_HEIGHT = 600;
-	const char WINDOW_NAME[] = "Sine Wave Render";
-
-	//InstantiateGLFW window 
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	//	Construct window object
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, WINDOW_NAME, NULL, NULL);
-	//Check for window initilisation
-	if (window == NULL)
+	// build and compile our shader program
+	// ------------------------------------
+	// vertex shader
+	int shader_compiled = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(shader_compiled, 1, &shader_source, NULL);
+	glCompileShader(shader_compiled);
+	// check for shader compile errors
+	int success;
+	char info_log[512];
+	glGetShaderiv(shader_compiled, GL_COMPILE_STATUS, &success);
+	if (!success)
 	{
-		std::cout << "FAILED TO CREATE WINDOW." << std::endl;
-		glfwTerminate();
-		return -1;
+		glGetShaderInfoLog(shader_compiled, 512, NULL, info_log);
+		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << info_log << std::endl;
 	}
-	glfwMakeContextCurrent(window);
-
-	//Call viewport resize check
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-	//Initilisation of GLAD
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << " FAILED TO INITIALISE GLAD." << std::endl;
-		return -2;
-	}
-	
-	//Creates a sineline object and adds the vertex coords
-	sineLine sine_wave_one;
-	sine_wave_one.addVertices(sineCurveGeneration());
-	//std::vector<float> vertices = sine_wave_one.returnVertices();
-	sine_wave_one.VBOBufferCreation();
-	//Compiles the vertex shader, fragment shader and then links the two
-	//in a shader program and then calls the shader program to be used.
-	unsigned int shader_program = sine_wave_one.shaderProgramLinker(sine_wave_one.vertexShaderCompiler(), sine_wave_one.vertexShaderCompiler());
-	//Set vertex attribute pointers
-	
-	//Creates a triangle usign the crappy sinewave class
-	sineLine triangle;
-	sine_wave_one.addVertices({ 0.5f, 0.5f, 0.0f,0.5f, -0.5f, 0.0f,	-0.5f, -0.5f, 0.0f });
-	//Generate a Vertex Array Object
-	unsigned int VAO,VBO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1,&VBO);
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(triangle.returnVertices()), &triangle.returnVertices(), GL_STATIC_DRAW);
-	
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
-
-	//The render loop
-	while (!glfwWindowShouldClose(window))
-	{
-		//Sets color of window
-		glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		glUseProgram(shader_program);
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_LINE_STRIP,0,triangle.returnVertices().size());
-
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
-
-	//Terminates the window
-	glfwTerminate();
-	return 0;
+	return shader_compiled;
 }
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	//Set viewport size to screen width-100 and screen height-100 so that options
-	//can be displayed around the edge of the rendering window
-	glViewport(0, 0, width - 100, height - 100);
-}*/
