@@ -13,7 +13,7 @@ std::vector<float> sineCurveGeneration()
 		flat_coords.push_back((i/function_domain));				//X coord
 		//Calculates Y coord of sine by turning the x value into radians using a custom efined PI value and then using the math sin function 
 		flat_coords.push_back(sin((i*PI)/180));		//Y coord		
-		flat_coords.push_back(0.0f);				//Z cooord set to 0 as we want 2D
+		//flat_coords.push_back(0.0f);				//Z cooord set to 0 as we want 2D
 	}
 	return flat_coords;
 }
