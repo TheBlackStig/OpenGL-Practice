@@ -1,3 +1,4 @@
-﻿  Window.cpp
+﻿  SineWaveVertexGen.cpp
+c:\users\sevans\documents\github\opengl-practice\opengl sine wave\opengl sine wave\sinewavevertexgen.cpp(26): warning C4018: '<': signed/unsigned mismatch
   OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.exe
   OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.pdb (Partial PDB)
