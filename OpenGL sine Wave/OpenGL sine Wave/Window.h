@@ -1,10 +1,15 @@
 #pragma once
 
+//Includes the file containing functions for all sine wave operations
+#include "SineWaveVertexGen.h"
+
+//Includes GLAD
+#include <glad/glad.h>
+//Includes GLFW
+#include <GLFW/glfw3.h>
+
+//Input output library
 #include <iostream>
-
-#include <glad\glad.h>
-#include <GLFW\glfw3.h>
-
 //Main fucntion where render loop is and all instatisation takes place
 int main();
 
