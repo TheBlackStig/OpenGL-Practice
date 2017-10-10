@@ -25,6 +25,7 @@ std::vector<float> sineCurveGeneration()
 	return flat_coords;
 }
 
+//Defines the function printing contents of verticies vector
 void vectorDisplay(std::vector<float> input_vector)
 {
 	//Outputs headers
