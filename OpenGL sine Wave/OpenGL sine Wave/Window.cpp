@@ -138,9 +138,9 @@ int main()
 	glEnableVertexAttribArray(0);													
 
 	///For second set of VAO and VBO for axis
-	//Binding first VAO making it the active object which all subsequent functions will reference
+	//Binding second VAO making it the active object which all subsequent functions will reference
 	glBindVertexArray(VAO[1]);	
-	//Binding first VBO to active VAO arguments - type of buffer, buffer pointer
+	//Binding second VBO to active VAO arguments - type of buffer, buffer pointer
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);											
 	//Binding vertex data to the buffer arguments - target buffer object, size of buffer objects new data in bytes, 
 	//a pointer to first value of the data, expected usage pattern static in this case as no animation is taking place.
@@ -152,10 +152,6 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 	//Telling opengl to interpret vertex as x,y
 	glEnableVertexAttribArray(0);													
-
-	//Allows any shapes to be drawn in a line mode 
-	//As only lines are being drawn this isn't needed
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	//The render loop
 	while (!glfwWindowShouldClose(window))
