@@ -1,43 +1,40 @@
 #include "Window.h"
-#include "SineWaveVertexGen.h"
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include <iostream>
-
 
 //Window settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
-//Shader source code
-const char *vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
+//Shader source codes 
+//Vertex shader scour code
+const char *vertex_shader_source = "#version 330 core\n"	//Version declaration in thiscase 330 as we're using OpenGl 3.3
+"layout (location = 0) in vec3 aPos;\n"						//Declare vertex input attributes of a type vec 3 for 3D coords with a name of aPos
+"void main()\n"												//Define main function
+"{\n"														
+"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"		//The output of the shader is always 4 coords but as we only need 3 the
+"}\0";														// 'w' component can be set to 1 and x,y,z as aPos values
+//Fragment shader for orange
+const char *fragment_shader_source = "#version 330 core\n"	//Version declaration in this case 330 as we're using OpenGl 3.3
+"out vec4 frag_color;\n"									//Declare the output values as a vec4 of name frag_color
+"void main()\n"												//Define main fucntion of program
+"{\n"
+"   frag_color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"			//Now assign frag_color to color orange using 4 normalised rgba values
+"}\0";														// red, green, blue, alpha (opacity)
+//Fragment shader for green
+const char *green_frag_shader = "#version 330 core\n"		//Version declaration in this case 330 as we're using OpenGl 3.3
+"out vec4 frag_color;\n"									//Define main function of program
 "void main()\n"
 "{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-const char *fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\0";
-
-const char *blue_frag_shader = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"	FragColor = vec4(0.423f, 0.964f, 0.352f, 1.0f);\n"
-"}\0";
+"	frag_color = vec4(0.423f, 0.964f, 0.352f, 1.0f);\n"		//Now assign frag_color to color green using 4 normalised rgba values
+"}\0";														// red, green, blue, alpha (opacity)
 
 int main()
 {
 	//GLFW initialize and configure
-	glfwInit();														//Inital intantiasation od object
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);					//Version of GLFW major
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);					//Version of GLFW minor
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);	//Core profile version
+	glfwInit();														//Inital intantiasation of glfw
+	//Version of GLFW major first argument is what we want to configrue second is the version number
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	//Version of GLFW minor first argument is what we want to configrue second is the version number
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);	//Core profile version 
 
 	//GLFW window creation using constants SCR_WIDTH and SCR_HEIGHT
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
@@ -48,8 +45,9 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
+	//Makes the context of the specified window current on the running thread
 	glfwMakeContextCurrent(window);
-	//Checks of OS has chanegd veiwport size on start
+	//Checks if OS has chanegd viewport size on start using the framebuffer_size_callback function
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	//Load all OpenGL function pointers with GLAD
@@ -62,9 +60,9 @@ int main()
 
 	//Build and compile shader program for sinewave
 	//Vertex shader compilation
-	unsigned int vertex_shader = vertexShaderCompiler(vertexShaderSource);
+	unsigned int vertex_shader = vertexShaderCompiler(vertex_shader_source);
 	//Fragment shader compilation
-	unsigned int sine_fragment_shader = fragmentShaderCompiler(fragmentShaderSource);
+	unsigned int sine_fragment_shader = fragmentShaderCompiler(fragment_shader_source);
 	// link shaders
 	int success;
 	char info_log[512];
@@ -86,7 +84,7 @@ int main()
 
 	//Build and compile shader program for axis
 	//Note that the vertex shader from the previous is used as that can be identical
-	unsigned int axis_fragment_shader = fragmentShaderCompiler(blue_frag_shader);
+	unsigned int axis_fragment_shader = fragmentShaderCompiler(green_frag_shader);
 	int axis_shader_program = glCreateProgram();
 	//Attach the vertex shader to the axis shader program
 	glAttachShader(axis_shader_program, vertex_shader);
@@ -105,45 +103,9 @@ int main()
 	//Sinewave
 	std::vector<float> vertices = sineCurveGeneration();
 	//Displays vector sine wave
-	vectorDisplay(vertices);
-	//Penguin attempt
-	/*float vertices[] = {-0.04f,0.8f,
-		0.04f,0.8f,
-		0.08f,0.75f,	//Right side of face
-		0.09f,0.7f,
-		0.085f,0.65f,
-		0.2f,0.5f,
-		0.25f,0.45f,
-		0.2f,0.4f,
-		0.15f,0.4f,
-		0.2f,0.3f,
-		0.08f,0.1f,// Now acrros to right
-		-0.08f,0.1f,
-		-0.2f,0.3f,
-		-0.15f,0.4f,
-		-0.2f,0.4f,
-		-0.25f,0.45f,
-		-0.2f,0.5f,
-		-0.085f,0.65f,
-		-0.09f,0.7f,
-		-0.08f,0.75f,
-		-0.04f,0.8f
+	//vectorDisplay(vertices);
 
-
-	};*/
-	/*
-	//Triangle
-	float vertices[] = {
-		0.5f,  0.5f, 0.0f,  // top right
-		0.5f, -0.5f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  // bottom left
-		//-0.5f,  0.5f, 0.0f   // top left 
-	};*/
-	/*unsigned int indices[] = {  // note that we start from 0!
-		0, 1, 3,  // first Triangle
-		1, 2, 3   // second Triangle
-	};*/
-	//Axis coords
+	//Axis coordinates
 	float axis[] = { -1.0f, 0.0f,
 		1.0f, 0.0f,
 		0.0f, 0.0f,
@@ -160,23 +122,36 @@ int main()
 	
 
 	///For First set of VAO and VBO for sine wave
-	glBindVertexArray(VAO[0]);														//Binding first VAO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);											//Binding first VBO
-	glBufferData(GL_ARRAY_BUFFER, vertices.size(), &vertices[0], GL_STATIC_DRAW);	//Binding vertex data to the buffer 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);	//Telling opengl how to interpret the data
-																					//In this case it is in 3s x,y,z
-	glEnableVertexAttribArray(0);													// enabling the buffer
+	//Binding first VAO making it the active object which all subsequent functions will reference
+	glBindVertexArray(VAO[0]);								
+	//Binding first VBO to active VAO arguments - type of buffer, buffer pointer
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);	
+	//Binding vertex data to the buffer arguments - target buffer object, size of buffer objects new data in bytes, 
+	//a pointer to first value of the data, expected usage pattern static in this case as no animation is taking place.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*vertices.size(), &vertices[0], GL_STATIC_DRAW);
+	//Telling opengl how to interpret the data In this case it is in 3s x,y,z
+	//Arguments - vertex attribute (0 from vertex shader), size of vertex attribute (vec3 so 3), specifies type of data, 
+	//data normalised or not, specifies the stride bewteen set of coordiantes in bytes (3 * the size of float in bytes as usign 3D coordinates)
+	//offset of data position in buffer and is cast as 0
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	//Enabling the buffer																				
+	glEnableVertexAttribArray(0);													
 
 	///For second set of VAO and VBO for axis
-	glBindVertexArray(VAO[1]);														// Binding second VAO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);											// Binding second VBO
-	glBufferData(GL_ARRAY_BUFFER, sizeof(axis), axis, GL_STATIC_DRAW);				//Binding vertex data to the buffer
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);	//Telling opengl to interpret vertex as x,y
-	glEnableVertexAttribArray(0);													//enabling the buffer
-
-	//Allows any shapes to be drawn in a line mode 
-	//As only lines are being drawn this isn't needed
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//Binding second VAO making it the active object which all subsequent functions will reference
+	glBindVertexArray(VAO[1]);	
+	//Binding second VBO to active VAO arguments - type of buffer, buffer pointer
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);											
+	//Binding vertex data to the buffer arguments - target buffer object, size of buffer objects new data in bytes, 
+	//a pointer to first value of the data, expected usage pattern static in this case as no animation is taking place.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(axis), axis, GL_STATIC_DRAW);
+	//Telling opengl to interpret vertex as pairs (x,y)
+	//Arguments - vertex attribute (0 from vertex shader), size of vertex attribute (vec3 so 3), specifies type of data, 
+	//data normalised or not, specifies the stride bewteen set of coordiantes in bytes (3 * the size of float in bytes as usign 3D coordinates)
+	//offset of data position in buffer and is cast as 0
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+	//Telling opengl to interpret vertex as x,y
+	glEnableVertexAttribArray(0);													
 
 	//The render loop
 	while (!glfwWindowShouldClose(window))
@@ -196,7 +171,7 @@ int main()
 		//Binding the VAO to the sine wave 
 		glBindVertexArray(VAO[0]);
 		//Draw the sinewave with the given 3D coords
-		glDrawArrays(GL_POINTS, 0, vertices.size());
+		glDrawArrays(GL_LINE_STRIP, 0, vertices.size());
 
 
 		///Drawing axis
@@ -244,8 +219,12 @@ unsigned int vertexShaderCompiler(const char* shader_source)
 {
 	//Build and compile shader program
 	//Vertex shader
+	//Creates the initial shader object with the type of shader it is in this case a vertex shader
 	int vertex_shader_compiled = glCreateShader(GL_VERTEX_SHADER);
+	//Points the shader source code to the shader object taking the shader object, number of strings, the source code
+	//The fine argument is the length of string by this can be calculated by the function
 	glShaderSource(vertex_shader_compiled, 1, &shader_source, NULL);
+	//Compiles the shader with the previously given attributes
 	glCompileShader(vertex_shader_compiled);
 	//Check for shader compile errors
 	int success;
@@ -263,11 +242,14 @@ unsigned int fragmentShaderCompiler(const char* shader_source)
 {
 	//Build and compile shader program
 	//Fragment shader
-	
+	//Creates the initial shader object with the type of shader it is in this case a fragment shader
 	int fragment_shader_compiled = glCreateShader(GL_FRAGMENT_SHADER);
+	//Points the shader source code to the shader object taking the shader object, number of strings, the source code
+	//The fine argument is the length of string by this can be calculated by the function
 	glShaderSource(fragment_shader_compiled, 1, &shader_source, NULL);
+	//Compiles the shader with the previously given attributes
 	glCompileShader(fragment_shader_compiled);
-	// check for shader compile errors
+	//Check for shader compile errors
 	int success;
 	char info_log[512];
 	glGetShaderiv(fragment_shader_compiled, GL_COMPILE_STATUS, &success);

@@ -3,10 +3,14 @@
 #define PI 3.14159265
 
 //Basic includes
+//Input output library
 #include <iostream>
+//Input output manipulator 
 #include <iomanip>
-#include "math.h"
+//Vector libarary
 #include <vector>
+//Math library header 
+#include "math.h"
 
 //Function to return vector of 2D coords with enough coords to create a curve
 std::vector<float> sineCurveGeneration();
