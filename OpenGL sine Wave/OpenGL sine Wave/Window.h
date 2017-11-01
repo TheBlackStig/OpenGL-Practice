@@ -7,6 +7,10 @@
 #include <glad/glad.h>
 //Includes GLFW
 #include <GLFW/glfw3.h>
+//Includes GLW (OpenGL Mathematics Library)
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 //Input output library
 #include <iostream>

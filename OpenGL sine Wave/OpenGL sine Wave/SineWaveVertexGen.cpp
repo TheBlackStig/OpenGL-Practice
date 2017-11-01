@@ -12,13 +12,23 @@ std::vector<float> sineCurveGeneration()
 	//Iterating through the range of -function_domain to function_domain in steps of 1 
 	for (float i = -function_domain; i < function_domain; i++)
 	{
+		//Torus Knot 
+		/*
+		int p = 2;
+		int q = 8;
+		float r = cos(((i*PI) / 180)*q) + 2;
+		flat_coords.push_back(float((r * cos(((i*PI) / 180) * p))/function_domain));
+		flat_coords.push_back(float((r * sin(((i*PI) / 180) * p))));
+		flat_coords.push_back(float(-sin(((i*PI) / 180) * q)));
+		*/
+		
 		//Adds x coord to list and normalises by dividing by the function_domain 
 		//so that it can be used immediatly by OpenGL
 		flat_coords.push_back(float(i / function_domain));
 		//Calculates Y coord of sine by turning the x value into radians 
 		//using a custom defined PI value and then using the math sin function to calculate a y value
 		//the sine function uses radians so the degrees value has to be * by PI and / by 180 to get radians
-		flat_coords.push_back(float(sin((i*PI) / 180.0f)));
+		flat_coords.push_back(float(sin((i*PI) / 180.0f)/2));
 		//Adds a z coordiante of 0.0f for now as we only want 2D however can be changed later for 3D waves.
 		flat_coords.push_back(0.0f);
 	}
