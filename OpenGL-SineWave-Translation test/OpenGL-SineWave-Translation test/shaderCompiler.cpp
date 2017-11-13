@@ -1,9 +1,5 @@
 #include "shaderCompiler.h"
 
-const char vertexShader = 'a';
-
-const char fragmentShader = 'b';
-
 unsigned int vertexShaderCompiler(const char* vertex_shader_source)
 {
 	//Take shader source and compile the vertex shader
@@ -45,8 +41,8 @@ int shaderLinker(unsigned int vertex_shader, unsigned int fragment_shader)
 {
 	//Attach vertex and fragment shaders to final shader and link the two.
 	int shader_program = glCreateProgram();
-	glAttachShader(shader_program, vertexShader);
-	glAttachShader(shader_program, fragmentShader);
+	glAttachShader(shader_program, vertex_shader);
+	glAttachShader(shader_program, fragment_shader);
 	glLinkProgram(shader_program);
 	
 	//Check for linking errors
