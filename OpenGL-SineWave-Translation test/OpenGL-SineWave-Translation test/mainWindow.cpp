@@ -2,6 +2,22 @@
 #include "shaderCompiler.h"
 #include "vertexGeneration.h"
 
+
+//transformable shader
+/*const char *vertex_shader_source = "#version 330 core\n"
+"layout(location = 0) in vec3 aPos;\n"
+"layout(location = 1) in vec2 aTexCoord;\n"
+
+"out vec4 vertex_color;\n"
+
+"uniform mat4 transform;\n"
+
+"void main()\n"
+"{\n"
+	"gl_Position = transform * vec4(aPos, 1.0);\n"
+	"vertex_color = vec4(0.5,0.0,0.0,1.0);\n"
+"}";*/
+//Non transform shader
 const char *vertex_shader_source = "#version 330 core\n"
 "layout(location = 0) in vec3 aPos;\n"
 "out vec4 vertex_color;\n"								//Sepcifiy the colour output to the fragment shader
@@ -55,7 +71,7 @@ int main()
 
 	//Load verticies
 	//Verticies for a cube 
-	float cube_verticies[] = {
+	/*float cube_verticies[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
 		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -97,8 +113,9 @@ int main()
 		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-	};
-
+	};*/
+	//Verticies for sine wave
+	std::vector<float> sine_wave_verticies = sineWaveGenerator(0,0,0);
 	//VBOs and VAOs and EBOs
 	unsigned int VBO, VAO;
 	glGenVertexArrays(1, &VAO);
@@ -106,11 +123,20 @@ int main()
 
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_verticies), cube_verticies, GL_STATIC_DRAW);
+	///For sinewave
+	glBufferData(GL_ARRAY_BUFFER, sizeof(sine_wave_verticies), &sine_wave_verticies, GL_STATIC_DRAW);
+	///For cube
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(cube_verticies), cube_verticies, GL_STATIC_DRAW);
 
 	//Position attributes
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	///For sinewave
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	///For cube
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+
+	//Draw in wire mesh mode
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//Render Loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -123,8 +149,15 @@ int main()
 
 		glUseProgram(linked_shader);
 
+		//Draw a sinewave
+		//glDrawArrays(GL_LINES, 0, sine_wave_verticies.size());
+		//Draw	transformations
+		glm::mat4 transform;
+		transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+		transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
 		//Draw cube out of triangles 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
 
 		//Swap buffers and poll events
 		glfwSwapBuffers(window);
