@@ -1,3 +1,1 @@
-﻿  Window.cpp
-  OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.exe
-  OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.pdb (Partial PDB)
+﻿LINK : fatal error LNK1104: cannot open file 'opengl32.lib'
