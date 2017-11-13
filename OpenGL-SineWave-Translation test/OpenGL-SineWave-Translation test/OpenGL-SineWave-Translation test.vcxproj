@@ -80,7 +80,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,14 +117,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\GLAD\glad\src\glad.c" />
     <ClCompile Include="mainWindow.cpp" />
     <ClCompile Include="shaderCompiler.cpp" />
-    <ClCompile Include="sineWaveVertexGeneration.cpp" />
+    <ClCompile Include="vertexGeneration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainWindow.h" />
     <ClInclude Include="shaderCompiler.h" />
-    <ClInclude Include="sineWaveVertexGeneration.h" />
+    <ClInclude Include="vertexGeneration.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

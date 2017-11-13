@@ -18,10 +18,13 @@
     <ClCompile Include="mainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sineWaveVertexGeneration.cpp">
+    <ClCompile Include="shaderCompiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shaderCompiler.cpp">
+    <ClCompile Include="vertexGeneration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\GLAD\glad\src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +32,10 @@
     <ClInclude Include="mainWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sineWaveVertexGeneration.h">
+    <ClInclude Include="shaderCompiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shaderCompiler.h">
+    <ClInclude Include="vertexGeneration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
