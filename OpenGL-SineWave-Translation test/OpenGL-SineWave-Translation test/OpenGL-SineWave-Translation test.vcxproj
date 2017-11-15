@@ -119,13 +119,16 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\GLAD\glad\src\glad.c" />
     <ClCompile Include="mainWindow.cpp" />
-    <ClCompile Include="shaderCompiler.cpp" />
     <ClCompile Include="vertexGeneration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainWindow.h" />
-    <ClInclude Include="shaderCompiler.h" />
+    <ClInclude Include="shaderObject.h" />
     <ClInclude Include="vertexGeneration.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fragment-shader.glfs" />
+    <None Include="vertex-shader.glvs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,31 +1,6 @@
 #include "mainWindow.h"
-#include "shaderCompiler.h"
+#include "shaderObject.h"
 #include "vertexGeneration.h"
-
-
-//transformable shader
-/*const char *vertex_shader_source = "#version 330 core\n"
-"layout(location = 0) in vec3 aPos;\n"
-"layout(location = 1) in vec2 aTexCoord;\n"
-
-"out vec4 vertex_color;\n"
-
-"uniform mat4 transform;\n"
-
-"void main()\n"
-"{\n"
-	"gl_Position = transform * vec4(aPos, 1.0);\n"
-	"vertex_color = vec4(0.5,0.0,0.0,1.0);\n"
-"}";*/
-//Non transform shader
-const char *vertex_shader_source = "#version 330 core\n"
-"layout(location = 0) in vec3 aPos;\n"
-"out vec4 vertex_color;\n"								//Sepcifiy the colour output to the fragment shader
-"void main()\n"
-"{\n"
-"	gl_Position = vec4(aPos, 1.0);\n"
-"	vertex_color = vec4(0.5, 0.0, 0.0, 1.0);\n"
-"}\0";
 
 const char *fragment_shader_source = "#version 330 core\n"
 "out vec4 frag_color;\n"
@@ -58,17 +33,8 @@ int main()
 		std::cout << "Failed to initalize glad" << std::endl;
 		return -2;
 	}
-	//Load, compile and link shaders
-	///load vertex shader
-	int vertex_shader = vertexShaderCompiler(vertex_shader_source);
-	///load fragment shader
-	int fragment_shader = fragmentShaderCompiler(fragment_shader_source);
-	///Link shaders
-	int linked_shader = shaderLinker(vertex_shader, fragment_shader);
-	//Delete vertex and fragment shaders as theyre no longer needed.
-	glDeleteShader(vertex_shader);
-	glDeleteShader(fragment_shader);
-
+	//Call constructor for shader objects using filepaths fro shader source code
+	Shader sine_wave_shader("vertex-shader.glvs", "fragment-shader.glfs");
 	//Load verticies
 	//Verticies for a cube 
 	/*float cube_verticies[] = {
@@ -124,13 +90,14 @@ int main()
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	///For sinewave
-	glBufferData(GL_ARRAY_BUFFER, sizeof(sine_wave_verticies), &sine_wave_verticies, GL_STATIC_DRAW);
+	std::cout << sine_wave_verticies.size();
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sine_wave_verticies.size(), &sine_wave_verticies[0], GL_STATIC_DRAW);
 	///For cube
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(cube_verticies), cube_verticies, GL_STATIC_DRAW);
 
 	//Position attributes
 	///For sinewave
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	///For cube
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
@@ -147,16 +114,19 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glUseProgram(linked_shader);
-
+		sine_wave_shader.use();
 		//Draw a sinewave
-		//glDrawArrays(GL_LINES, 0, sine_wave_verticies.size());
+		glDrawArrays(GL_POINTS, 0, sine_wave_verticies.size());
 		//Draw	transformations
 		glm::mat4 transform;
 		transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
 		transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+		
+		//Tranformations on shader
+		unsigned int transformLoc = glGetUniformLocation(sine_wave_shader.ID, "transform");
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 		//Draw cube out of triangles 
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
 		
 
 		//Swap buffers and poll events

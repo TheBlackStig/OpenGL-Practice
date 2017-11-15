@@ -13,12 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{39b5126f-f0bd-4a01-a74a-765e05c3f885}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shaderCompiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vertexGeneration.cpp">
@@ -32,11 +32,19 @@
     <ClInclude Include="mainWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shaderCompiler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vertexGeneration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shaderObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vertex-shader.glvs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fragment-shader.glfs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
