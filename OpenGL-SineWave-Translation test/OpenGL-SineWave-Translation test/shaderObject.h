@@ -58,8 +58,8 @@ public:
 			std::cout << "FAILED TO LOAD AND READ SHADER FILES" << std::endl;
 		}
 		//convert the strings into chars so that they can be understodo by the compilers
-		const char* vert_shader_source = vert_shader_code.c_str();
-		const char* frag_shader_source = vert_shader_code.c_str();
+		const char *vert_shader_source = vert_shader_code.c_str();
+		const char *frag_shader_source = vert_shader_code.c_str();
 
 		//Compile the shaders 
 		//Take shader source and compile the vertex shader

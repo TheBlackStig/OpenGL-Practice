@@ -90,14 +90,13 @@ int main()
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	///For sinewave
-	std::cout << sine_wave_verticies.size();
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sine_wave_verticies.size(), &sine_wave_verticies[0], GL_STATIC_DRAW);
 	///For cube
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(cube_verticies), cube_verticies, GL_STATIC_DRAW);
 
 	//Position attributes
 	///For sinewave
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	///For cube
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
@@ -116,9 +115,10 @@ int main()
 
 		sine_wave_shader.use();
 		//Draw a sinewave
+		glBindVertexArray(VAO);
 		glDrawArrays(GL_POINTS, 0, sine_wave_verticies.size());
 		//Draw	transformations
-		glm::mat4 transform;
+		/*glm::mat4 transform;
 		transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
 		transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
 		
@@ -126,7 +126,7 @@ int main()
 		unsigned int transformLoc = glGetUniformLocation(sine_wave_shader.ID, "transform");
 		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 		//Draw cube out of triangles 
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glDrawArrays(GL_TRIANGLES, 0, 36);*/
 		
 
 		//Swap buffers and poll events
