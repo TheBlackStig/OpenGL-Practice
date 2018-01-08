@@ -119,6 +119,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\GLAD\glad\src\glad.c" />
     <ClCompile Include="mainWindow.cpp" />
+    <ClCompile Include="shaderObject.cpp" />
     <ClCompile Include="vertexGeneration.cpp" />
   </ItemGroup>
   <ItemGroup>
