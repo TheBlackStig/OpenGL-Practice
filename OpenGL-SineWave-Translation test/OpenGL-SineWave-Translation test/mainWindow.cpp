@@ -2,14 +2,6 @@
 #include "shaderObject.h"
 #include "vertexGeneration.h"
 
-const char *fragment_shader_source = "#version 330 core\n"
-"out vec4 frag_color;\n"
-"in vec4 vertex_color;\n"
-"void main()\n"
-"{\n"
-"	frag_color = vertex_color;\n"
-"}\0";
-
 int main()
 {
 	//glfw initialisation and setup
@@ -81,7 +73,7 @@ int main()
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};*/
 	//Verticies for sine wave
-	std::vector<float> sine_wave_verticies = sineWaveGenerator(0,0,0);
+	std::vector<float> sine_wave_verticies = sineWaveGenerator(0.5f,0,0);
 	//VBOs and VAOs and EBOs
 	unsigned int VBO, VAO;
 	glGenVertexArrays(1, &VAO);
@@ -95,8 +87,14 @@ int main()
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(cube_verticies), cube_verticies, GL_STATIC_DRAW);
 
 	//Position attributes
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	// color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 	///For sinewave
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	///For cube
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);

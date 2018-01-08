@@ -12,6 +12,10 @@ std::vector<float> sineWaveGenerator(float x_offset, float y_offset, float z_off
 		sine_wave_verticies.push_back((sin((i * PI) / 180)) + y_offset);	//Y component
 		sine_wave_verticies.push_back(z_offset);							//Z component
 		//sine_wave_verticies.push_back(0);									//W component
+		sine_wave_verticies.push_back(1.0f);								//Red
+		sine_wave_verticies.push_back(0.0f);								//Green
+		sine_wave_verticies.push_back(0.0f);								//Blue
+
 	}
 
 	return sine_wave_verticies;

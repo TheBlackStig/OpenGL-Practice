@@ -1,2 +1,7 @@
-﻿  Window.cpp
-c:\users\sevans\documents\glfw libs & includes\include\glfw\glfw3.h(171): fatal error C1083: Cannot open include file: 'GL/gl.h': No such file or directory
+﻿  glad.c
+  Window.cpp
+  SineWaveVertexGen.cpp
+c:\users\sevans\documents\github\opengl-practice\opengl sine wave\opengl sine wave\sinewavevertexgen.cpp(44): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  OpenGL sine Wave.vcxproj -> C:\Users\SEvans\Documents\GitHub\OpenGL-Practice\OpenGL sine Wave\Debug\OpenGL sine Wave.exe
