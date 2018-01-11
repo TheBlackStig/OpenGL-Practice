@@ -36,8 +36,8 @@ Shader::Shader(const GLchar* vert_shader_path, const GLchar* frag_shader_path)
 		std::cout << "FAILED TO LOAD AND READ SHADER FILES" << std::endl;
 	}
 	//convert the strings into chars so that they can be understodo by the compilers
-	const char *vert_shader_source = vert_shader_code.c_str();
-	const char *frag_shader_source = vert_shader_code.c_str();
+	const char* vert_shader_source = vert_shader_code.c_str();
+	const char* frag_shader_source = frag_shader_code.c_str();
 
 	//Compile the shaders 
 	//Take shader source and compile the vertex shader
@@ -63,4 +63,29 @@ Shader::Shader(const GLchar* vert_shader_path, const GLchar* frag_shader_path)
 	//Delete the fragment and vertex shaders
 	glDeleteShader(vert_shader_compiled);
 	glDeleteShader(frag_shader_compiled);
+}
+
+//Internal fucntion for checking for compile/linking errors within the constructor
+void Shader::checkCompileErrors(unsigned int shader, std::string type)
+{
+	int success;
+	char info_log[1024];
+	if (type != "PROGRAM")
+	{
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+		if (!success)
+		{
+			glGetShaderInfoLog(shader, 1024, NULL, info_log);
+			std::cout << "ERROR IN " << type << " SHADER COMPILATION" << "\n" << info_log << std::endl;
+		}
+	}
+	else
+	{
+		glGetProgramiv(shader, GL_LINK_STATUS, &success);
+		if (!success)
+		{
+			glGetShaderInfoLog(shader, 1024, NULL, info_log);
+			std::cout << "ERROR IN PROGRAM LINKING OF TYPE: " << type << "\n" << info_log << std::endl;
+		}
+	}
 }
